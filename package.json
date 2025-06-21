@@ -1,0 +1,16 @@
+{
+  "name": "zenn-articles",
+  "version": "1.0.0",
+  "description": "Repository for Zenn articles",
+  "private": true,
+  "scripts": {
+    "preview": "zenn preview & open http://localhost:8000"
+  },
+  "keywords": [],
+  "author": "Daiji Yamashita",
+  "license": "ISC",
+  "packageManager": "pnpm@10.11.0",
+  "dependencies": {
+    "zenn-cli": "^0.1.161"
+  }
+}
