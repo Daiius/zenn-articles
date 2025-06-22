@@ -2,8 +2,8 @@
 title: "実験的認証サーバ UrsaAuth 開発の話"
 emoji: "🐻"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["authjs", "typescript", "oauth", "oauth2", "contest2025ts"]
-published: false
+topics: ["authjs", "nextjs", "typescript", "oauth", "contest2025ts"]
+published: true
 ---
 
 ## 実験的認証サーバ UrsaAuth powered by Auth.js & TypeScript
@@ -19,11 +19,11 @@ published: false
 *Next.js での使用例：サインイン画面(Auth.js のデフォルト画面を使用)*
 
 ![サインイン後\_スクリーンショット](/images/ursa-auth/after_sign_in.png)
-*Next.js での使用例：サインイン後 Sever Side Rendering でユーザ情報を取得して表示*
+*Next.js での使用例：サインイン後 Server Side Rendering でユーザ情報を取得して表示*
 
 この記事では、**TypeScriptで開発中の実験的認証サーバ UrsaAuth を紹介します**。
 
-Next.js や Auth.js を使う方、認証サーバ構築やそのセキュリティに興味のある方、TypeScript開発を行う方に、ちょっとずつ興味を持って頂けるのではと思います。
+Next.js や Auth.js を使う方、認証サーバ構築やそのセキュリティに興味のある方、TypeScript開発を行う方に興味を持って頂けるのではと思います。
 
 
 こちらの記事投稿コンテストに参加させて頂きます！
@@ -40,7 +40,8 @@ Next.js や Auth.js を使う方、認証サーバ構築やそのセキュリテ
 本文中でも TypeScript 開発で良いと感じるところを紹介していきますが、**全体に共通している大きなメリットにはこの様なものがあります**:
 
 - **動作させないとエラーか分からないコードの量がグッと減り、開発に集中できる**
-- **サーバサイドとクライアントサイドを同じ言語で開発でき、全部1人でやる個人開発とも相性が良い**
+- **サーバサイドとクライアントサイドを同じ言語で開発できる**
+  - コンテクストスイッチが少なく、手法によっては型情報の共有(RPC)も可
 
 ## どうして作ったのか？
 個人開発で [Next.js](https://nextjs.org/) + [TypeScript](https://www.typescriptlang.org/) によるWebアプリケーションを作っています。
@@ -64,13 +65,15 @@ Next.js や Auth.js を使う方、認証サーバ構築やそのセキュリテ
 となるので、Web/モバイル両方大丈夫な方法にはならなそうです......
 :::
 
-[Firebase Authentication](https://firebase.google.com/docs/auth?hl=ja) や [Auth0](https://auth0.com/jp)、[Clerk](https://clerk.com/) という大変良さそうな認証サーバの選択肢があるのですが、以前Next.jsアプリケーションで使用した [Auth.js](https://authjs.dev/) が結構良かったことを思い出しました。
+[Firebase Authentication](https://firebase.google.com/docs/auth?hl=ja) や [Auth0](https://auth0.com/jp)、[Clerk](https://clerk.com/) という大変良さそうな認証サーバの選択肢があるのですが[^1]、以前Next.jsアプリケーションで使用した [Auth.js](https://authjs.dev/) が結構良かったことを思い出しました。
+
+[^1]: Clerk は内部で Auth.js を使用している様です
 
 @[card](https://authjs.dev/)
 
 Auth.js は色々な OAuth/OIDC プロバイダにも対応しており、それらの振る舞いの差を吸収し暗号化された認証情報（JWE形式）を生成したりもします。
 
-**便利なライブラリですが、Auth.js は OAuth/OIDC についてはクライアントとして振る舞うので、単にそれだけではちっとも認証サーバではありません**。
+**便利なライブラリですが、Auth.js は OAuth/OIDC クライアントとして動作するので、単にそれだけではちっとも認証サーバではありません**。
 アプリケーションに組み込む形で、そのアプリケーションだけを認証するのが本来の使い方です。その動作にはCookieが必須であり、従ってブラウザ系の基盤に依存しない**モバイルアプリからの認証にも向いていません**。
 
 でも、**Auth.jsが生成するJWEを、安全な方法で自分のWeb/モバイルアプリに渡せれば何とかならないかなぁという方針で、TypeScriptの勉強も兼ねて進めてみました**。
@@ -96,6 +99,7 @@ Auth.js は色々な OAuth/OIDC プロバイダにも対応しており、それ
   - クライアント側JavaScriptから読めないのでサーバサイド処理が増えるのですが、Next.js 等なら全く問題なく開発できます
   - でも脆弱性には注意が必要なので油断は禁物です（例: CVE-2025-29927）
 - **UrsaAuth は暗号化された認証情報を、OAuth 2.0 の手続きの一部に使われるPKCEという方法を再度用いて、Auth.js からユーザの手元に届けます**
+  - **認証情報を届ける先のアプリはホワイトリスト管理を確実にし**、開発元が不明なアプリに送信されるのを防ぎます
   - この認証情報を安全な場所に保存するのは、UrsaAuthを利用するアプリケーション側の責任で行います
   - 保存先は Webアプリケーションなら HttpOnly Cookie、モバイルなら Secure Storage が適切そうです
   - UrsaAuth 自身は現段階では OAuth Provider としては振舞えておらず、独自の認証方法になってしまっています
@@ -193,11 +197,15 @@ Web/モバイルアプリ、UrsaAuth、そして OAuth Provider の3者が関係
 - **Auth.js自体は確か30くらいのOAuthプロバイダに対応していますが、UrsaAuth はまだGitHub OAuth機能の設定のみです、他の認証もできるようにします**
   - 異なるOAuth Providerがたまたま同じIDを異なるユーザに発行しうる(OAuth Providerが割り当てるIDをそのまま使う)ことに対処します
   - OAuth Provider によって異なるユーザ情報を発行するのを吸収する仕組みを設けます
-    - TypeScript の型を上手く使えば、動作前にかなりのミスを型のミスマッチとして検出できます
+    - TypeScript の型情報を上手く使えば、型のミスマッチを検出しながら開発でき、かなりのミスをテスト前に防げます
 - **原理的にはモバイルアプリからの認証も可能なので、実験してみます**
-  - アプリ側では既存認証用ライブラリ+ちょっとした設定済みそうな感じもあり、もう少し調査を進めます
+  - アプリ側では既存認証用ライブラリ+ちょっとした設定で済みそうな感じもあり、もう少し調査を進めます
 - **現段階では UrsaAuth は軽量化を意識して Hono を使用していますが、リッチな認証画面を提供するために Next.js に変更するのもありそうです**
   - 認証元のアプリによって異なる、カスタマイズされた OAuth プロバイダ選択画面を表示してみたいです
     - テーマカラーを認証元と同じにする、特定の OAuth Provider と連携するために、おすすめの選択肢をきちんと示す など
 
+
+## おわりに
+認証関連の知識の再確認や、セキュリティ関連についても深掘りしながら、開発を継続して参ります。
+いつか皆さんが私の開発したサービスを使用する際クマちゃんアイコンの認証サーバが動いていたら、可愛がって下さると嬉しいです！！
 
