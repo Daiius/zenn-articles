@@ -4,7 +4,7 @@
   "description": "Repository for Zenn articles",
   "private": true,
   "scripts": {
-    "preview": "zenn preview & open http://localhost:8000"
+    "preview": "open http://localhost:8000 & zenn preview"
   },
   "keywords": [],
   "author": "Daiji Yamashita",
