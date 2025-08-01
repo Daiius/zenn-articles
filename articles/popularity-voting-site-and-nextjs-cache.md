@@ -10,6 +10,7 @@ publication_name: "chot"
 # 下書き中
 > Next.js で開発しているお試し投票サイトで、
 > - `generateStaticParams` でビルド時に集計ページを生成したい
+> - `export const revalidate = (適当な秒数)` でISR対象にしたい
 > - `export const dynamicParams = false` でビルド時に生成した集計ページ以外は404にしたい
 > - `revalidatePath` を投票時に呼び出して、最小限のページをすぐに更新したい
 > 
