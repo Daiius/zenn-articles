@@ -236,6 +236,6 @@ import { auth } from "better-auth.config";
 const app = new Hono();
 
 app.all("/api/auth/*", async c => {
-  return await auth(c.req.raw);
+  return await auth.handler(c.req.raw);
 })
 ```
