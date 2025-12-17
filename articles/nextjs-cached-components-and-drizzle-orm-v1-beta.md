@@ -97,14 +97,93 @@ sequenceDiagram
 
 ## 以下はまだ整理していない部分
 
-## Drizzle ORM v1.0 beta
+## Drizzle ORM v1.0 beta 
+v1.0 beta では relation 定義の方法がちょっと変わっています
+```typescript
+export const relations = defineRelations(
+  { user, account, session },
+  (r) => ({
+    user: {
+      sessions: r.many.session(),
+      accounts: r.many.account(),
+      votes: r.many.votes(),
+    },
+    session: {
+      user: r.one.user({
+        from: r.session.userId,
+        to: r.user.id,
+      }),
+    },
+    account: {
+      user: r.one.user({
+        from: r.account.userId,
+        to: r.user.id,
+      }),
+    },
+  )}
+);
+```
+:::details 以前の relations の書き方はこう
+```typescript
+export const userRelations = relations(user, ({ many }) => ({
+  sessions: many(session),
+  accounts: many(account),
+}));
 
-- db.query するとき where 部分に drizzle-orm の import が必要無くなったのは嬉しい
-- relations の optional: false が動いていないっぽい
+export const sessionRelations = relations(session, ({ one }) => ({
+  user: one(user, {
+    fields: [session.userId],
+    references: [user.id],
+  }),
+}));
 
-Drizzle ORM v1.0 では relation 定義の方法が変わっていて、Better Auth 生成部分を以下のように書き換える必要がありました。
+export const accountRelations = relations(account, ({ one }) => ({
+  user: one(user, {
+    fields: [account.userId],
+    references: [user.id],
+  }),
+}));
+```
+:::
 
-https://github.com/Daiius/techmejiro/blob/8e860f9ea04eea498eccf4053b5bdcb4e0145fd6/db/db/schema.ts#L78-L97
+relations を使うと、テーブル結合の具体的な手続きを毎回意識せずに関連したデータを自動で取ってくる query 機能が使えます。
+
+例えば投票データは userId, techId, impressionId の組ですが、 データ取得時に techId に紐づいた tech の情報、impressionId に紐づいた impression も情報も一緒に欲しい、みたいな時にこんな書き方ができます
+```typescript
+await db.query.votes.findMany({
+  where: { userId: { eq: userId } }, // ← この部分もv1.0βで変わっています
+  with: {
+    tech: true,
+    impression: true,
+  }
+});
+```
+:::details SQLを直接書くのに近い別の方法...
+柔軟ですがテーブル結合方法は自分で考え指定します。
+```typescript
+await db.select.from(votes).where(eq(votes.userId, userId))
+  .leftJoin(techs, eq(votes.techId, techs.id))
+  .leftJoin(impressions, eq(votes.impressionId, impressions.id));
+```
+:::
+
+今はスキーマ定義全体に関連する 1 つの relations を指定する方法になっているみたいです。
+```typescript
+// db/index.ts
+import { relations } from "./schema";
+export const db = drizzle({ client, relations, mode: "default", });
+```
+
+relations 定義の場所を複数ファイルに分割する場合、どこかで 1 つにまとめる必要があるので、[defineRelationsPart](https://orm.drizzle.team/docs/latest-releases/drizzle-orm-v1beta2#relational-query-parts) 関数というのも用意されています！
+
+:::details 以前の relations 使用方法
+以前はこんな感じで schema に含まれる複数の relations をまとめて渡していました。
+```typescript
+// db/index.ts 
+import * as schema from "db/schema";
+const db = drizzle(connection, { schema, mode: "default" });
+```
+:::
 
 ## Next.js Cach Components
 
