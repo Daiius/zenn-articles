@@ -29,7 +29,7 @@ publication_name: "chot"
 個人開発で似た概念のものを作ったのですが、**社内で Web 技術についてアンケートや分析をしたいというモチベーションがある**ので、題材として丁度良さそうです。
 [State of JavaScript](https://stateofjs.com/ja-JP) など既に類似するものはありますが、上記の様な関係性の分析はどうやら公開されておらず、手元で分析できたら面白そうです！
 
-## 気になる技術スタック
+## 気になる技術
 - [**Next.js v16**](https://nextjs.org/blog/next-16)
   - [Cache Components](https://nextjs.org/docs/app/getting-started/cache-components) が気になります、投票・分析サイトでの使い所を考えてみます
    
@@ -48,13 +48,15 @@ publication_name: "chot"
 
   @[card](https://orm.drizzle.team/)
 
-今回は紹介しませんが、次の技術も使用します
+次の技術も使用します
 - [Hono](https://hono.dev/)
   - 軽量な、Web 標準を重視するサーバサイド用フレームワークです
   - [RPC 機能](://hono.dev/docs/guides/rpc#rpc) で DB → FE まで型情報の伝播が可能です
   - Next.js から直接DBアクセスする構成もありですが、柔軟性や個人的な環境の制約からバックエンドを作る際、よく使用します
-- もちろんデータベースもありますが、今回の主役ではないので省略です
+- もちろんデータベースも
 
+
+::::details 全体的な動作のイメージ
 正確な表現が難しく、省略しているところがありますが、この様に動作します
 
 :::message
@@ -94,10 +96,21 @@ sequenceDiagram
 
 
 ```
+::::
 
-## 以下はまだ整理していない部分
+## 気になる技術 感想のまとめ
+- **Drizzle ORM v1.0β**
+  - 以前よりパッと見で分かり易い書き方になったり、少ない import で表現できるのが良い感じがします！
+  - ずっと deprecated な依存関係を抱えていた部分も解消されています
+- **Better Auth**
+  - 後発であることもあって整理された使用感です！Drizzle ORM や Hono との連携も自然にできます
+    - 厳密には Drizzle ORM v1.0β 向けのスキーマ生成はできず一部修正しましたが問題ないレベルです、Drizzle ORM v1.0 の正式リリース後、にすぐ対応されるでしょう
+- **Cache Components**
+  - 単一ページ中で static と dynamic な描画手法を取り入れられる感覚、使いこなすと強力そうです
+  - 独特な感じがするので、同等の機能が他のフレームワークでどう実装されるか等、今後のWeb全体の動向に一層興味を持っていきたいです
 
-## Drizzle ORM v1.0 beta 
+## 気になる技術 感想の詳細
+### Drizzle ORM v1.0 beta 
 v1.0 beta では relation 定義の方法がちょっと変わっています
 ```typescript
 // Drizzle ORM v1.0 beta の relations 定義
@@ -189,12 +202,12 @@ const db = drizzle(connection, { schema, mode: "default" });
 ```
 :::
 
-## Next.js Cach Components
+### Next.js Cach Components
 
 - "use cache" と "use cache: private" の挙動の違いは？
   - 全体的な投票分析結果は "use cache"、ユーザそれぞれの投票結果は "use cache: private" か?
 
-## Better Auth
+### Better Auth
 
 設定ファイルや処理がまとまっていると感じます！ Auth.js と近い感覚で扱えます。
 
