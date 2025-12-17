@@ -100,6 +100,7 @@ sequenceDiagram
 ## Drizzle ORM v1.0 beta 
 v1.0 beta では relation 定義の方法がちょっと変わっています
 ```typescript
+// Drizzle ORM v1.0 beta の relations 定義
 export const relations = defineRelations(
   { user, account, session },
   (r) => ({
@@ -125,6 +126,7 @@ export const relations = defineRelations(
 ```
 :::details 以前の relations の書き方はこう
 ```typescript
+// Drizzle ORM v0.x の relations 定義
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
@@ -150,6 +152,7 @@ relations を使うと、テーブル結合の具体的な手続きを毎回意�
 
 例えば投票データは userId, techId, impressionId の組ですが、 データ取得時に techId に紐づいた tech の情報、impressionId に紐づいた impression も情報も一緒に欲しい、みたいな時にこんな書き方ができます
 ```typescript
+// Drizzle ORM query の例
 await db.query.votes.findMany({
   where: { userId: { eq: userId } }, // ← この部分もv1.0βで変わっています
   with: {
@@ -161,6 +164,7 @@ await db.query.votes.findMany({
 :::details SQLを直接書くのに近い別の方法...
 柔軟ですがテーブル結合方法は自分で考え指定します。
 ```typescript
+// Drizzle ORM select の例
 await db.select.from(votes).where(eq(votes.userId, userId))
   .leftJoin(techs, eq(votes.techId, techs.id))
   .leftJoin(impressions, eq(votes.impressionId, impressions.id));
@@ -192,28 +196,46 @@ const db = drizzle(connection, { schema, mode: "default" });
 
 ## Better Auth
 
-Drizzle ORM との連携で、次の様なテーブルが生成されます。他に session, account テーブルができます
+設定ファイルや処理がまとまっていると感じます！ Auth.js と近い感覚で扱えます。
 
-https://github.com/Daiius/techmejiro/blob/8e860f9ea04eea498eccf4053b5bdcb4e0145fd6/db/db/auth-schema.ts#L10-L21
+Google と GitHub の OAuth 認証を設定してみています。
+```typescript
+// better-auth.config.ts
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { db } from "db";
 
+export const auth = betterAuth({
+  database: drizzleAdapter(db, { provider: "postgres" }),
+  socialProviders: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    },
+    github: {
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+      scope: ["read:user", "user:email"],
+    },
+  },
+});
+```
 
-## メモ
-認証の流れ
+上記の設定ファイルは、動作時だけでなくセッション管理用スキーマ生成にも使用されます。
+```bash
+# 上記設定ファイル + このコマンドで Drizzle ORM のスキーマが生成されます
+pnpm dlx @better-auth/cli@latest generate
+```
 
-```mermaid
-sequenceDiagram
-    participant browser as ブラウザ
-    participant nextjs as Next.js
-    box darkGray
-        participant server as API サーバ<br>Hono
-        participant db as データベース
-    end
-    participant oauth as OAuth プロバイダ
+Hono に組み込む際はこんな感じです、シンプル。
+```typescript
+// Hono + Better Auth の重要部分抜粋
+import { app } from "Hono";
+import { auth } from "better-auth.config";
 
-    browser ->> nextjs : 認証操作
-    nextjs  ->> server : 認証リクエスト<br>Server Action
-    server  ->> oauth : OAuth 認証ハンドリング<br>Better Auth
-    oauth  -->> server : 
-    server  ->> db : セッション情報保存<br>Better Auth<br>Drizzle ORM
-    server -->> browser : セッション情報共有
+const app = new Hono();
+
+app.all("/api/auth/*", async c => {
+  return await auth(c.req.raw);
+})
 ```
