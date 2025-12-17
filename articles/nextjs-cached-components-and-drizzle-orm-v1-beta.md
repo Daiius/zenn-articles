@@ -10,14 +10,14 @@ publication_name: "chot"
 :::message
 **下書きメモ（公開前に消します）**
 - 「この技術が好きな人は、この技術も好き」といった傾向を分析できる Web 技術投票サイトを試作することを題材に、
-  - Next.js v16 の [Cache Compnents](https://nextjs.org/docs/app/getting-started/cache-components)
+  - Next.js v16 の [Cache Components](https://nextjs.org/docs/app/getting-started/cache-components)
   - [Drizzle ORM](https://orm.drizzle.team/) v1.0 beta 
   - [Better Auth](https://www.better-auth.com/) 
 
-  ...の紹介と使用法を説明しつつ、要所にサンプルコード付きで紹介したいです
+  ...の紹介を、要所にサンプルコード付きで行いたいです
 
 - 試作中 Web アプリのリポジトリは [ここ](https://github.com/Daiius/techmejiro) です
-  - 記事公開時での上記 Web サイトの完成度に自信ないのでサイト自体の紹介は別の記事にして、会社ブログでは個々の技術ポイントを紹介しようと考えています
+  - 記事公開時に上記 Web サイト完成しそうにないので、会社ブログでは個々の技術ポイントを紹介しようと考えています
 
 :::
 
@@ -42,7 +42,7 @@ publication_name: "chot"
 
 - [**Better Auth**](https://www.better-auth.com/)
   - Auth.js 使っていましたが、[こんなお知らせ](https://www.better-auth.com/blog/authjs-joins-better-auth) があったりしたので気になっていました
-  - 充実した機能を持つ認証用ライブラリで、「誰が投票しているか」把握するするため使用します
+  - 充実した機能を持つ認証用ライブラリで、「誰が投票しているか」把握するため使用します
 
   @[card](https://www.better-auth.com/)
 
@@ -57,7 +57,7 @@ publication_name: "chot"
 
 # 気になる技術の調査・感想 まとめ
 - **Cache Components**
-  - `use cache: privatre` は、 **「同一リクエスト内で use cache: private 指定されたある関数が同じ条件で複数回呼ばれる場合、最初の実行結果がキャッシュされ後の呼び出しではその結果が返される。リクエストを跨いだキャッシュはしない」** という挙動になるみたいです
+  - `use cache: private` は、 **「同一リクエスト内で use cache: private 指定されたある関数が同じ条件で複数回呼ばれる場合、最初の実行結果がキャッシュされ後の呼び出しではその結果が返される。リクエストを跨いだキャッシュはしない」** という挙動になるみたいです
   - `use cache` 系のディレクティブは便利ですが独特な感じがするので、同等の機能が他のフレームワークでどう実現されるか等、今後の幅広いフロントエンドフレームワークの動向に一層興味を持っていきたいです
 - **Drizzle ORM v1.0β**
   - 以前よりパッと見で分かり易い書き方になったり、少ない import で表現できるのが良い感じがします！
@@ -67,7 +67,7 @@ publication_name: "chot"
     - 厳密には Drizzle ORM v1.0β 向けのスキーマ生成はできず一部修正しましたが問題ないレベルです、Drizzle ORM v1.0 の正式リリース後すぐ対応されるでしょう
 
 # 気になる技術の調査・感想 詳細
-## Next.js Cach Components
+## Next.js Cache Components
 
 公式のサンプルや説明からは、
 - **"use cache" が向いていそうなもの**
@@ -397,7 +397,7 @@ pnpm dlx @better-auth/cli@latest generate
 例えば Hono に組み込む際はこんな感じです、シンプル。
 ```typescript
 // Hono + Better Auth の重要部分抜粋
-import { app } from "Hono";
+import { Hono } from "hono";
 import { auth } from "better-auth.config";
 
 const app = new Hono();
@@ -422,57 +422,4 @@ export const { GET, POST } = toNextJsHandler(auth);
 ピントの定まらないごった煮感のある内容になってはしまいましたが、技術調査の方向性としては有りなのかもしれません。
 
 この記事で扱っていた内容のどれか 1 つでも、皆さんにとっても気になるポイントになっていたら幸いです！
-
-# 公開前に削除する、メモ書きゾーン
-:::message
-この章以降は、本番公開前に削除します
-:::
-
-::::details 全体的な動作のイメージ
-正確な表現が難しく、省略しているところがありますが、この様に動作します
-
-:::message
-下書きメモ: OAuth 認証に関係するところ、できるだけ正確に書きたい
-:::
-
-```mermaid
-sequenceDiagram
-    participant browser as ブラウザ
-    participant nextjs as Next.js
-    participant server as Hono
-    participant drizzle as Drizzle ORM
-    participant ba as Better Auth
-    participant db as データベース
-    participant oauth as OAuth プロバイダ
-
-    Note over nextjs, db: 型情報の伝播
-    ba       ->> drizzle : adapterでの連携
-    drizzle  ->> db : テーブル定義
-    drizzle  ->> server : 型情報を伝播
-    server   ->> nextjs : 型情報を伝播<br>(Hono PRC)
-
-    Note over browser, nextjs: Cache Components
-    browser  ->> nextjs : 投票結果ページを<br>リクエスト
-    nextjs  -->> browser : キャッシュが返る？
-
-    Note over browser, oauth: Better Auth での OAuth 認証
-    browser  ->> nextjs : 投票ページは<br>認証が必要
-    nextjs   ->> ba : 認証リクエストの処理
-    ba       ->> oauth : OAuth 関連の通信
-    oauth   -->> ba :  
-    ba      -->> browser : リダイレクト
-    browser  ->> oauth : 認証操作
-    oauth   -->> ba : 認証情報
-    ba       ->> db : セッション情報の保存
-    ba      -->> browser : セッションIDをクッキーで保存
-
-
-```
-::::
-
-次の技術も使用します:
-- [Hono](https://hono.dev/)
-  - 軽量な、Web 標準を重視するサーバサイド用フレームワークです
-  - [RPC 機能](://hono.dev/docs/guides/rpc#rpc) で DB → FE まで型情報の伝播が可能です
-- もちろんデータベースも使用しますが、今回は省略です
 
