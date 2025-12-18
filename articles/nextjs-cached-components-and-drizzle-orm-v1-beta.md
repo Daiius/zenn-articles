@@ -44,6 +44,7 @@ publication_name: "chot"
 # 気になる技術の調査・感想 まとめ
 - **Cache Components**
   - `use cache: private` は、 **「同一リクエスト内で use cache: private 指定されたある関数が同じ条件で複数回呼ばれる場合、最初の実行結果がキャッシュされ後の呼び出しではその結果が返される。リクエストを跨いだキャッシュはしない」** という挙動になるみたいです
+  - 使い所はちょっと考えるべきみたいで、まずは `use cache` 出来る部分と headers() や cookies() を呼ぶ部分を分離出来るように設計するものみたいです
   - `use cache` 系のディレクティブは便利ですが独特な感じがするので、同等の機能が他のフレームワークでどう実現されるか等、今後の幅広いフロントエンドフレームワークの動向に一層興味を持っていきたいです
 - **Drizzle ORM v1.0β**
   - 以前よりパッと見で分かり易い書き方になったり、少ない import で表現できるのが良い感じがします！
@@ -55,7 +56,7 @@ publication_name: "chot"
 # 気になる技術の調査・感想 詳細
 ## Next.js Cache Components
 
-公式のサンプルや説明からは、
+[`use cache`](https://nextjs.org/docs/app/api-reference/directives/use-cache) と [`use cache: private`](https://nextjs.org/docs/app/api-reference/directives/use-cache-private) の使い分けを考えてみます。
 - **"use cache" が向いていそうなもの**
   - 投票全体の分析結果で、全ユーザに共通するキャッシュを設定できるもの
 - **"use cache: private" が向いていそうなもの**
@@ -250,7 +251,16 @@ export default async function TestCachePrivatePage() {
 
 という記述や、RDC はリクエスト毎に新規作成されるオブジェクトであることあたりが関連していそうです。
 
-ということは、同一リクエスト内で複数回呼ばれる headers() や cookies() を呼び出す関数に対して "use cache: private" を指定すると、パフォーマンス面で有利に出来る場面が有りそうです。
+ということは、同一リクエスト内で複数回呼ばれる headers() や cookies() を呼び出す関数に対して "use cache: private" を指定すると、パフォーマンス面で有利に出来る場面が有る...とかでしょうか。
+
+
+...と思っていたのですが、再度公式ドキュメントを見返した結果`use cache` の方にこんな言及がありました
+> - To use cookies or headers, read them outside cached scopes and pass values as arguments. This is the preferred pattern.
+> - If the in-memory cache isn't sufficient for runtime data, 'use cache: remote' allows platforms to provide a dedicated cache handler, though it requires a network roundtrip to check the cache and typically incurs platform fees.
+> - For compliance requirements or when you can't refactor to pass runtime data as arguments to a use cache scope, see 'use cache: private'.
+
+`use cache: private` は最初から何かの利点を狙って積極的に使うものではなく、キャッシュされる文脈の外で cookies() や headers() を呼び出すことを担保できない場合や、ユーザ毎のデータがキャッシュに乗らないことを確実にする手段として使用する...ということみたいですね。
+
 
 ## Drizzle ORM v1.0β 
 v1.0β では relation 定義の方法がちょっと変わっています。
