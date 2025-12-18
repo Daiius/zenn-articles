@@ -11,7 +11,7 @@ publication_name: "chot"
 **下書きメモ（公開前に消します）**
 - 「この技術が好きな人は、この技術も好き」といった傾向を分析できる Web 技術投票サイトを試作することを題材に、
   - Next.js v16 の [Cache Components](https://nextjs.org/docs/app/getting-started/cache-components)
-  - [Drizzle ORM](https://orm.drizzle.team/) v1.0 beta 
+  - [Drizzle ORM](https://orm.drizzle.team/) v1.0β
   - [Better Auth](https://www.better-auth.com/) 
 
   ...の紹介を、要所にサンプルコード付きで行いたいです
@@ -49,7 +49,7 @@ publication_name: "chot"
 - [**Drizzle ORM**](https://orm.drizzle.team/)
   - アプリケーションとデータベースを繋ぐ ORM (Object Relational Mapper) の 1 つです
   - テーブル設計から設定ファイルまで全部 TypeScript、もちろん型が付きます
-  - v1.0 がもうすぐ出ます...！まだ beta ですが試してみます！
+  - v1.0 がもうすぐ出ます...！まだ β 版ですが試してみます！
 
   @[card](https://orm.drizzle.team/)
 
@@ -266,10 +266,10 @@ export default async function TestCachePrivatePage() {
 
 ということは、同一リクエスト内で複数回呼ばれる関数に対して "use cache: private" を指定することはパフォーマンス面で有利に出来る傾向が有りそうです。
 
-## Drizzle ORM v1.0 beta 
-v1.0 beta では relation 定義の方法がちょっと変わっています
+## Drizzle ORM v1.0β 
+v1.0β では relation 定義の方法がちょっと変わっています。
 ```typescript
-// Drizzle ORM v1.0 beta の relations 定義
+// Drizzle ORM v1.0β の relations 定義
 export const relations = defineRelations(
   { user, account, session },
   (r) => ({
@@ -319,7 +319,7 @@ export const accountRelations = relations(account, ({ one }) => ({
 
 relations を使うと、テーブル結合の具体的な手続きを毎回意識せずに関連したデータを自動で取ってくる query 機能が使えます。
 
-例えば投票データは userId, techId, impressionId の組ですが、 データ取得時に techId に紐づいた tech の情報、impressionId に紐づいた impression も情報も一緒に欲しい、みたいな時にこんな書き方ができます
+例えば投票データは userId, techId, impressionId の組ですが、 データ取得時に techId に紐づいた tech の情報、impressionId に紐づいた impression も情報も一緒に欲しい、みたいな時にこんな書き方ができます。
 ```typescript
 // Drizzle ORM query の例
 await db.query.votes.findMany({
@@ -421,5 +421,5 @@ export const { GET, POST } = toNextJsHandler(auth);
 気になる技術と作りたいものが比較的マッチしていたためか、個々の技術調査に留まらず、複数組み合わせた際の相性の良いところ・悪いところについても考える機会が得られました。
 ピントの定まらないごった煮感のある内容になってはしまいましたが、技術調査の方向性としては有りなのかもしれません。
 
-この記事で扱っていた内容のどれか 1 つでも、皆さんにとっても気になるポイントになっていたら幸いです！
+この記事の内容のどれか 1 つでも、皆さんも気になるポイントになっていたら幸いです！
 
