@@ -7,20 +7,6 @@ published: false
 publication_name: "chot"
 ---
 
-:::message
-**下書きメモ（公開前に消します）**
-- 「この技術が好きな人は、この技術も好き」といった傾向を分析できる Web 技術投票サイトを試作することを題材に、
-  - Next.js v16 の [Cache Components](https://nextjs.org/docs/app/getting-started/cache-components)
-  - [Drizzle ORM](https://orm.drizzle.team/) v1.0β
-  - [Better Auth](https://www.better-auth.com/) 
-
-  ...の紹介を、要所にサンプルコード付きで行いたいです
-
-- 試作中 Web アプリのリポジトリは [ここ](https://github.com/Daiius/techmejiro) です
-  - 記事公開時に上記 Web サイト完成しそうにないので、会社ブログでは個々の技術ポイントを紹介しようと考えています
-
-:::
-
 # 気になる技術を色々使って Web アプリを作っています
 変化の早い Web 技術、新技術や新機能を試す前に次の更新が出てしまいそう...なので、**「いっそフルスタックで何か作ったら新しい技術に触る機会ができるのでは？」** と考えました。
 
