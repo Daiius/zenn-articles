@@ -250,7 +250,7 @@ export default async function TestCachePrivatePage() {
 
 という記述や、RDC はリクエスト毎に新規作成されるオブジェクトであることあたりが関連していそうです。
 
-ということは、同一リクエスト内で複数回呼ばれる関数に対して "use cache: private" を指定することはパフォーマンス面で有利に出来る傾向が有りそうです。
+ということは、同一リクエスト内で複数回呼ばれる headers() や cookies() を呼び出す関数に対して "use cache: private" を指定すると、パフォーマンス面で有利に出来る場面が有りそうです。
 
 ## Drizzle ORM v1.0β 
 v1.0β では relation 定義の方法がちょっと変わっています。
