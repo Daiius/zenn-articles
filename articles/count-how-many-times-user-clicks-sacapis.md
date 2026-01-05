@@ -2,7 +2,7 @@
 title: "全ユーザがWebアプリのボタンをクリックした回数を合計してみる"
 emoji: "#️⃣"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["hono", "redis", "typescript", "nodejs"]
+topics: ["hono", "redis", "react", "typescript", "nodejs"]
 published: false
 ---
 
