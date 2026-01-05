@@ -295,7 +295,7 @@ api.post("/count", async (c) => {
 #### カウント追跡フック（useFaceCountTracker.ts）
 
 ```typescript
-import { useRef, useCallback } from 'react'
+import { useRef } from 'react'
 
 const SUBMIT_INTERVAL = 20000 // 20秒間隔
 
@@ -305,7 +305,7 @@ export const useFaceCountTracker = () => {
   const timerIdRef = useRef<number | null>(null)
 
   // カウントをサーバに送信
-  const submitWithToken = useCallback(async () => {
+  const submitWithToken = async () => {
     const count = pendingCountRef.current
     const token = tokenRef.current
 
@@ -330,10 +330,10 @@ export const useFaceCountTracker = () => {
     } finally {
       timerIdRef.current = null
     }
-  }, [])
+  }
 
   // カウントを増やす
-  const incrementCount = useCallback(async () => {
+  const incrementCount = async () => {
     const wasZero = pendingCountRef.current === 0
     pendingCountRef.current += 1
 
@@ -360,7 +360,7 @@ export const useFaceCountTracker = () => {
         pendingCountRef.current = 0
       }
     }
-  }, [submitWithToken])
+  }
 
   return { incrementCount }
 }
