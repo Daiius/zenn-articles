@@ -64,10 +64,11 @@ sequenceDiagram
 ## 実装の詳細
 
 以下、上記の仕組みを実現するサンプルコードを紹介します。実際のプロダクション環境では数値を調整する必要があります。
+長いものもあるので折り畳んでいます...
 
 ### サーバー側（Hono + Redis）
 
-#### トークン管理（tokenManager.ts）
+:::details トークン管理（tokenManager.ts）
 
 ```typescript
 import { randomUUID } from "crypto";
@@ -132,7 +133,9 @@ export const validateAndConsumeToken = async (
 - Redis の `SETEX` で TTL 付き保存により自動削除
 - `MULTI` トランザクションで取得と削除を原子的に実行（トークンの使い回し防止）
 
-#### カウント管理（countManager.ts）
+:::
+
+:::details カウント管理（countManager.ts）
 
 ```typescript
 import { promises as fs } from "fs";
@@ -216,7 +219,9 @@ export const countManager = new CountManager();
 - `isDirty` フラグで不要な書き込みを回避
 - SIGINT/SIGTERM でのグレースフルシャットダウン対応
 
-#### APIエンドポイント（抜粋）
+:::
+
+:::details APIエンドポイント（抜粋）
 
 ```typescript
 import { Hono } from "hono";
@@ -290,9 +295,11 @@ api.post("/count", async (c) => {
 - 不正リクエストにも成功レスポンスを返して攻撃者を欺く
 - 経過時間からクリック数の上限を動的に算出
 
+:::
+
 ### クライアント側（React）
 
-#### カウント追跡フック（useFaceCountTracker.ts）
+:::details カウント追跡フック（useFaceCountTracker.ts）
 
 ```typescript
 import { useRef } from 'react'
@@ -371,7 +378,7 @@ export const useFaceCountTracker = () => {
 - 最初のクリック時にトークンを取得してタイマー開始
 - 一定時間後に蓄積されたカウントをまとめて送信
 
-#### 使用例
+**使用例：**
 
 ```typescript
 function App() {
@@ -390,6 +397,8 @@ function App() {
   )
 }
 ```
+
+:::
 
 ### 設定値の説明
 
