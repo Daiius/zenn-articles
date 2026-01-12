@@ -3,7 +3,8 @@ title: "「全員で何回クリックした？」を実装するのって案外
 emoji: "🔢"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["hono", "redis", "react", "typescript", "nodejs"]
-published: false
+published: true
+published_at: 2026-01-13 07:00
 ---
 
 ## 全ユーザがボタンを押した回数をゆるめにカウントしたい
