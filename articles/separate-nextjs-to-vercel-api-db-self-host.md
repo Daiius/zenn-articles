@@ -24,23 +24,89 @@ Next.js の Server Actions や Server Components は、サーバーサイドの�
 
 を、少しずつ検討していきます。
 
-## 分離したくなるモチベーション例
+## システム全体の設計
 
-API サーバを分離したくなる理由はいくつかあります。ここでは代表的な観点を紹介します。
+Next.js（Vercel）と API サーバを分離する際の構成を考えます。
 
-### セキュリティの観点
+### データ取得・操作の分離
+先ずはデータの取得・操作を行う処理を把握し、可能ならば `src/lib` など別ファイルに分離します。
+```mermaid
+architecture-beta
+  group nextjs(logos:aws-lambda)[Nextjs]
 
-2025 年末に公表された CVE-2025-55182 は、RSC の処理に起因する未認証のリモートコード実行（RCE）脆弱性でした。この事例が示すのは、フロントエンドとサーバーロジックが密結合な構造では、フレームワークの脆弱性がサーバーサイド全体に影響しうるということです。
+  service db(logos:aws-glacier)[Storage] in nextjs
+```
 
-明示的な BFF 層を設けると、HTTP エントリポイントを意図的に設計でき、以下のメリットがあります。
+<!-- 案1: シンプルなシーケンス図（呼び出しの流れ） -->
+```mermaid
+sequenceDiagram
+  participant comp as コンポーネント<br>(src/app, src/components)
+  participant lib as データ操作<br>(src/lib, src/actions)
+  participant db as DB
 
-- 脆弱性があっても BFF で許可された操作しか実行できない
-- WAF・認証・レート制限を一元化できる
-- アクセスログによる監視が容易
+  comp->>lib: getUsers()
+  lib->>db: SELECT * FROM users
+  db-->>lib: rows
+  lib-->>comp: User[]
+```
 
-もちろん「フレームワークをアップデートすれば良い」という考え方もあります。BFF 分離は多層防御の一つとして検討する選択肢です。
+<!-- 案2: フローチャート（依存関係の方向） -->
+```mermaid
+flowchart LR
+  subgraph presentation["表示層"]
+    app["src/app"]
+    components["src/components"]
+  end
 
-### インフラの観点（DB セルフホストの場合）
+  subgraph data["データ層"]
+    lib["src/lib"]
+    actions["src/actions"]
+  end
+
+  app --> lib
+  app --> actions
+  components --> lib
+
+  lib --> DB[(DB)]
+  actions --> DB
+```
+
+<!-- 案3: フローチャート（縦方向レイヤー） -->
+```mermaid
+flowchart TB
+  subgraph view["表示（何を見せるか）"]
+    app["src/app<br>src/components"]
+  end
+
+  subgraph logic["データ操作（どう取得・更新するか）"]
+    lib["src/lib<br>src/actions"]
+  end
+
+  view -->|関数呼び出し| logic
+  logic -->|SQL| DB[(DB)]
+```
+
+<!-- 案4: Before/After 比較（密結合 vs 分離） -->
+```mermaid
+flowchart LR
+  subgraph before["Before: 密結合"]
+    page1["page.tsx<br>────<br>表示ロジック<br>+ DB操作"]
+  end
+
+  subgraph after["After: 分離"]
+    page2["page.tsx<br>────<br>表示ロジック"]
+    lib2["lib/users.ts<br>────<br>DB操作"]
+    page2 --> lib2
+  end
+```
+
+<!-- 案5: シンプルな2ボックス -->
+```mermaid
+flowchart LR
+  A["コンポーネント<br>(src/app, src/components)<br>────<br>データをどう見せるか"] --> B["データ操作<br>(src/lib, src/actions)<br>────<br>データをどう取得・更新するか"]
+```
+
+### （仮）Vercel からセルフホスト DB への接続課題
 
 Vercel からセルフホストの MySQL に直接接続する構成には課題があります。
 
@@ -48,40 +114,37 @@ Vercel からセルフホストの MySQL に直接接続する構成には課題
 
 **コネクション数の問題**: Serverless 環境ではリクエストごとに新しいインスタンスが起動するため、同時リクエスト数がそのまま DB 接続数になります。MySQL の `max_connections`（デフォルト 151）にすぐ達してしまいます。
 
-API サーバを DB と同じ場所にホストすることで、これらの課題を解決できます。
-
 :::message
 PlanetScale や Neon などの DBaaS を使う場合、この課題はプロキシ層で解決されているため、API サーバを挟む必要は薄れます。
 :::
 
-### 責務分離の観点
+### （仮）API サーバを挟む構成
 
-フロントエンドと DB 操作ロジックが混在すると、コードの見通しが悪くなりがちです。API サーバに分離することで、以下のメリットがあります。
+API サーバを DB と同じ場所（例: VPS）にホストすることで、上記の課題を解決できます。
 
-- フロントエンドは「データをどう見せるか」に集中
-- バックエンドは「データをどう操作するか」に集中
-- API 単体でテストしやすい
+```
+[ユーザー] → [Vercel (Next.js)] → [API サーバ] → [DB]
+                                    └─ 同じVPSにホスト
+```
 
-### 注意: この構成のトレードオフ
+### 副次的なメリット
 
-この構成では、Vercel 側は Serverless でスケールしますが、BFF（API サーバ）は単一サーバで動作するため、ここがボトルネックになります。スケーラビリティの観点では理想的な構成ではありません。
+API サーバを分離することで、以下のようなメリットも得られます。
+
+- **セキュリティ境界の明確化**: HTTP エントリポイントを明示的に設計でき、フレームワークの脆弱性の影響範囲を限定しやすい
+- **責務の分離**: フロントエンドは表示、バックエンドはデータ操作に集中でき、テストもしやすくなる
+
+### この構成のトレードオフ
+
+この構成では、Vercel 側は Serverless でスケールしますが、API サーバは単一サーバで動作するため、ここがボトルネックになります。
 
 以下のような状況であれば、この構成でも問題になりにくいです。
 
 - バックエンドへのアクセス頻度が低く、処理が軽量
-- 負荷集中時のレイテンシ増加（スケールしない BFF 部分がボトルネックになる分）が許容できる
-- BFF 自体を Serverless 構成（Cloud Run、Fly.io など）で運用している
+- 負荷集中時のレイテンシ増加が許容できる
+- API サーバ自体を Serverless 構成（Cloud Run、Fly.io など）で運用している
 
-## Hono RPC とは
-
-Hono RPC は、サーバ側のルート定義から型情報をエクスポートし、クライアント側で型安全な API クライアントを生成する仕組みです。
-
-特徴:
-- サーバ側でルートを定義すると、その型情報を `AppType` としてエクスポートできる
-- クライアント側で `hc<AppType>()` を呼ぶと、パスやパラメータ、レスポンスの型が自動補完される
-- OpenAPI スキーマの生成やコード生成は不要
-
-## API 設計の実践
+## REST API エンドポイントの設計
 
 フロントエンド開発者がバックエンドを作る際、API 設計で迷うポイントがあります。ここでは実践的な指針を紹介します。
 
@@ -153,7 +216,14 @@ HTTP ステータスコードの使い分け:
 - 404: リソースが見つからない
 - 500: サーバーエラー
 
-## 実装例
+## 型安全な通信: Hono RPC
+
+Hono RPC は、サーバ側のルート定義から型情報をエクスポートし、クライアント側で型安全な API クライアントを生成する仕組みです。
+
+特徴:
+- サーバ側でルートを定義すると、その型情報を `AppType` としてエクスポートできる
+- クライアント側で `hc<AppType>()` を呼ぶと、パスやパラメータ、レスポンスの型が自動補完される
+- OpenAPI スキーマの生成やコード生成は不要
 
 ### サーバ側: ルート定義と型エクスポート
 
@@ -312,11 +382,11 @@ export const insertVotesIfUpdated = async ({
 }
 ```
 
-## モノレポでの型共有
+### モノレポでの型共有
 
 サーバ側の `AppType` を Next.js から参照するために、pnpm workspace でモノレポ構成にしました。
 
-### pnpm-workspace.yaml
+#### pnpm-workspace.yaml
 
 ```yaml:pnpm-workspace.yaml
 packages:
@@ -324,7 +394,7 @@ packages:
   - 'server-ts'
 ```
 
-### server-ts/package.json
+#### server-ts/package.json
 
 ```json:server-ts/package.json
 {
@@ -342,7 +412,7 @@ packages:
 }
 ```
 
-### next/package.json
+#### next/package.json
 
 ```json:next/package.json
 {
@@ -360,10 +430,12 @@ packages:
 
 ## まとめ
 
-Hono RPC を使うことで、以下のメリットが得られました。
+この記事では、Next.js と API サーバを分離する際の3つの観点を検討しました。
 
-- **型安全**: パス、パラメータ、リクエストボディ、レスポンスすべてに型補完が効く
-- **コード生成不要**: OpenAPI スキーマの生成や codegen なしで型が共有できる
-- **責務の明確化**: フロントエンドとバックエンドの境界を明示的に設計
+**システム全体の設計**: Vercel からセルフホスト DB に接続する際の課題（IP 制限、コネクション数）と、API サーバを挟む構成によるトレードオフを確認しました。
 
-BFF 分離のモチベーションは、セキュリティ、インフラ制約、責務分離などさまざまです。プロジェクトの状況に応じて、Hono RPC は良い選択肢になると思います。
+**REST API エンドポイントの設計**: リソース指向の URL 設計、Zod バリデーション、認証ミドルウェアなど、フロントエンド開発者がバックエンドを作る際の実践的な指針を紹介しました。
+
+**型安全な通信**: Hono RPC を使うことで、OpenAPI スキーマ生成やコード生成なしに、パス・パラメータ・リクエストボディ・レスポンスすべてに型補完が効く環境を構築できました。
+
+プロジェクトの状況に応じて、このような構成が選択肢になれば幸いです。
