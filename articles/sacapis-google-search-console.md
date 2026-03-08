@@ -146,21 +146,6 @@ const canonicalUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 - `canonical` はあくまで「ヒント」であり Google が無視する可能性はゼロではないが、同一コンテンツの URL パラメータ違いという今回のケースは canonical が最も尊重されやすい典型的なパターン
 - SEO シグナル（被リンク等）がトップページに統合されるため、サイト全体の検索順位にもプラスに働く
 
-## robots.txt について
-
-補足として、`robots.txt` についても触れておきます。現状では seed 付き URL のクロール抑制をコメントアウトしています。
-
-```txt
-User-agent: *
-Allow: /
-
-# seed付きURLへのクロールを抑制（noindex効果確認後に有効化）
-# Disallow: /*?seed=
-```
-
-canonical の効果が Search Console 上で確認できたら、`Disallow` を有効化する予定です。ただし、**`robots.txt` の `Disallow` はクロール自体を抑制するものであり、既にインデックスされた URL の削除には効果がない**点には注意が必要です。既にインデックスされた URL を消すには、Search Console の削除機能や canonical による正規化が必要です。
-
-
 ## おまけ：アプリ側の対応
 :::details シェアされた顔の区別
 
