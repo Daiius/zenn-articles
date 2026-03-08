@@ -3,7 +3,8 @@ title: "秘密にしたい URL が Google 検索に載ってしまった話"
 emoji: "🔎"
 type: "tech"
 topics: ["google", "seo", "hono", "vite", "searchconsole"]
-published: false
+published: true
+published_at: 2026-03-09 07:30
 ---
 
 ## はじめに — 何が起きたのか
