@@ -12,6 +12,11 @@ published: true
 
 @[card](https://github.com/Daiius/ursa-auth)
 
+:::message
+**より本格的な整備に向けて、UrsaAuth のリポジトリは一旦 private にして機能開発を進めています。**
+記事中で紹介しているコードは執筆時点のスナップショットを掲載しています。
+:::
+
 ![サインイン前\_スクリーンショット](/images/ursa-auth/before_sign_in.png)
 *Next.js での使用例：サインイン前*
 
@@ -104,9 +109,19 @@ Auth.js は色々な OAuth/OIDC プロバイダにも対応しており、それ
   - 保存先は Webアプリケーションなら HttpOnly Cookie、モバイルなら Secure Storage が適切そうです
   - UrsaAuth 自身は現段階では OAuth Provider としては振舞えておらず、独自の認証方法になってしまっています
 
-↓PKCEによる認証情報取得手続きの一部(全体はリンク先を参照下さい)
+↓PKCEによる認証情報取得手続きの一部
 
-https://github.com/Daiius/ursa-auth/blob/25dd23c25d9ea5dbb19b3af691352ff30ab1ba4f/examples/next/src/app/ursa-auth/signin/route.ts#L21-L28
+`examples/next/src/app/ursa-auth/signin/route.ts`
+```typescript
+  const res = await fetch(`${process.env.URSA_AUTH_URL!}/token`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      code_verifier: codeVerifier,
+      code: code
+    })
+  })
+```
 
 - **UrsaAuth を利用するアプリケーションは、ユーザ情報が必要な際に必ず認証サーバに問い合わせを行います**
   - 検証だけ行うための /validate エンドポイントと、内容を返す /me エンドポイントを持ちます
@@ -114,11 +129,34 @@ https://github.com/Daiius/ursa-auth/blob/25dd23c25d9ea5dbb19b3af691352ff30ab1ba4
 
 ↓UrsaAuth の /validate エンドポイント
 
-https://github.com/Daiius/ursa-auth/blob/25dd23c25d9ea5dbb19b3af691352ff30ab1ba4f/src/index.ts#L210-L225
+`src/index.ts`
+```typescript
+// UrsaAuthのBearer tokenを解析し、
+// ユーザの情報を検証します
+// /me と異なり結果を返しません
+app.get('/validate', async c => {
+  const jwe = getBearerToken(c.req.header('Authorization'))
+  if (!jwe) {
+    log('failed to get bearer token')
+    return c.text('Unauthorized', 401)
+  }
+  const jwt = await decodeJWE(jwe)
+  if (!jwt) {
+    log('faild to decode JWE')
+    return c.text('Unauthorized', 401)
+  }
+  return c.body(null, 204) 
+})
+```
 
 ↓Next.js middleware で認証情報を検証を依頼する部分
 
-https://github.com/Daiius/ursa-auth/blob/25dd23c25d9ea5dbb19b3af691352ff30ab1ba4f/examples/next/src/middleware.ts#L42-L44
+`examples/next/src/middleware.ts`
+```typescript
+const ursaAuthResponse = await fetch(validationUrl, {
+        headers: { 'Authorization': `Bearer ${jwe}` }
+      })
+```
 
 
 
