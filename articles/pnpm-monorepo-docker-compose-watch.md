@@ -115,6 +115,18 @@ COPY worker/ ./worker/
 
 コツは、**マニフェストを先に COPY → `pnpm install` → ソースを COPY** の順にすることです。ソース変更では install 層がキャッシュヒットして再ビルドが速く、`--mount=type=cache` が store の再ダウンロードも防ぎます。
 
+あわせて、ルートに `.dockerignore` を置いて COPY に巻き込みたくないものを除外します。
+
+```text:.dockerignore
+**/node_modules
+**/.next
+**/dist
+.git
+.env*
+```
+
+ホストに古い `node_modules` が残っていると COPY が巻き込んで symlink の網を壊すので、この除外は必須です。読まれるのは build context のルート（ここではリポジトリルート）に置いた1枚だけで、各パッケージ内の `.dockerignore` は無視される点に注意してください^[Dockerfile と同じ場所に置く `Dockerfile.dev.dockerignore` という命名のファイルだけは例外で、ルートの `.dockerignore` より優先して読まれます。]。
+
 これで `node_modules` はイメージの中だけに作られ、ホスト側には一切出てきません。**pnpm が張る symlink の網ごと、イメージの中に閉じ込めてしまう**のがこの方式の肝です。symlink はコンテナ自身のパス（`/workspace/...`）で完結し、watch はソースだけを sync して `node_modules` には触らないので、「ホストの肥大化」「OS 差のバイナリ非互換」「symlink のつじつま合わせ」が構造的に消えます。
 
 ```mermaid
