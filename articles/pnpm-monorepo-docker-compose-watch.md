@@ -77,7 +77,7 @@ graph TD
 
 ### bind mount をやめて Dockerfile.dev に COPY する
 
-まず、開発用の `Dockerfile.dev` を1枚だけ用意し、ソースを `COPY` でイメージに含めてしまいます。
+まず、開発用の `Dockerfile.dev` を1枚だけ用意し、ソースを `COPY` でイメージに含めてしまいます。（`.dev` は本番用との区別のための命名です。本番ビルドを Docker でしないならただの `Dockerfile` でも、multi-stage の `dev` ターゲットとして本番用と1枚にまとめても構いません。）
 
 ```dockerfile:Dockerfile.dev
 FROM node:22-slim
