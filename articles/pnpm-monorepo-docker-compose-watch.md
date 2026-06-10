@@ -51,9 +51,9 @@ flowchart LR
 
 ### なぜ pnpm monorepo だと volume mount が辛いのか
 
-「ソースを焼き込む」方向に倒すと何が嬉しいのかは、pnpm の `node_modules` の作りを知ると腑に落ちます。
+「ソースを焼き込む」方向が嬉しい理由は、pnpm の `node_modules` の作りにあります。
 
-pnpm の `node_modules` は、npm/yarn のような「実体ファイルがフラットに並んだ1ディレクトリ」ではありません。実体はワークスペースのルートの `node_modules/.pnpm`（store へのハードリンク置き場）にだけ存在し、各パッケージの `node_modules` の中身は、そこを指す **シンボリックリンクの集まり**です。さらに `workspace:*` 依存は、相手パッケージのディレクトリそのものへの symlink になります。
+pnpm の `node_modules` は、npm/yarn のような「実体ファイルがフラットに並んだ1ディレクトリ」ではありません。実体はワークスペースのルートの `node_modules/.pnpm` にだけ存在し、各パッケージの `node_modules` の中身はそこを指す **symlink の集まり**です（`workspace:*` 依存は相手パッケージ本体への symlink）。
 
 ```mermaid
 graph TD
@@ -72,7 +72,7 @@ graph TD
 
 つまり `node_modules` は「ディレクトリ」というより、ルートの実体置き場と各パッケージを結ぶ **symlink の網**です。
 
-これを volume mount で再現しようとすると、途端に苦しくなります。ソースを bind mount しつつ `node_modules` だけを volume でマスクする定番ハックを pnpm でやると、**マスクすべき階層が複数になる**（各パッケージの `node_modules` ＋ ルートの `.pnpm`）うえ、symlink の参照先がホストのパス前提なので、コンテナ側のレイアウトと食い違って **リンクが切れやすい**のです。できなくはないのですが、volume と symlink のつじつま合わせに延々と悩まされます。（これを嫌って `node-linker` を `hoisted`＝symlink をやめてフラット化する手もありますが、pnpm 本来の利点を手放すことになります。）
+これを volume mount で再現しようとすると、途端に苦しくなります。`node_modules` だけを volume でマスクする定番ハックを pnpm でやると、**マスクすべき階層が複数になる**うえ、symlink の参照先がコンテナ側のレイアウトと食い違って**リンクが切れやすい**のです。（symlink をやめてフラット化する `node-linker: hoisted` という逃げ道もありますが、pnpm 本来の利点を手放すことになります。）
 
 ### bind mount をやめて Dockerfile.dev に COPY する
 
@@ -100,14 +100,9 @@ COPY frontend/ ./frontend/
 COPY worker/ ./worker/
 ```
 
-ここでのコツは2つです。
+コツは、**マニフェストを先に COPY → `pnpm install` → ソースを COPY** の順にすることです。ソース変更では install 層がキャッシュヒットして再ビルドが速く、`--mount=type=cache` が store の再ダウンロードも防ぎます。
 
-- **マニフェスト（`package.json` と lockfile）を先に COPY → `pnpm install` → ソースを COPY** の順にする。こうするとソース変更時に install 層がキャッシュヒットし、再ビルドが速くなります。
-- `--mount=type=cache` で pnpm の store をキャッシュし、`--frozen-lockfile` で lockfile と完全一致を強制する。CI と同じ依存解決になり、再現性が上がります。
-
-`node_modules` はこの `pnpm install` でイメージの中に作られ、ホスト側には一切出てきません。これだけで「ホストの `node_modules` 肥大化」と「OS 差でのバイナリ非互換」は構造的に消えます。
-
-言い換えると、**pnpm が張る symlink の網ごと、開発用イメージの中に閉じ込めてしまう**のがこの方式の肝です。`pnpm install` はコンテナ自身のパス（`/workspace/...`）に対して symlink を張り、`docker compose watch` はソースだけを sync して `node_modules` には触りません。だから symlink の網が外（ホストの volume）から乱されることがなく、つじつま合わせがそもそも発生しません。
+これで `node_modules` はイメージの中だけに作られ、ホスト側には一切出てきません。**pnpm が張る symlink の網ごと、イメージの中に閉じ込めてしまう**のがこの方式の肝です。symlink はコンテナ自身のパス（`/workspace/...`）で完結し、watch はソースだけを sync して `node_modules` には触らないので、「ホストの肥大化」「OS 差のバイナリ非互換」「symlink のつじつま合わせ」が構造的に消えます。
 
 ```mermaid
 graph TB
@@ -229,19 +224,17 @@ services:
 
 アクションの考え方はシンプルです。
 
-- **`sync`**：変更ファイルをコンテナにコピーするだけ。フレームワークの HMR が効くもの（Next.js のフロント）に使う。コンテナは再起動しない。
-- **`sync+restart`**：コピーしたうえでコンテナのメインプロセスを再起動する。HMR を持たないプロセス（ここでは API サーバや worker）に使う。
-- **`rebuild`**：イメージを丸ごと再ビルドする。`pnpm-lock.yaml` が変わったとき＝依存を足したときだけ走らせる。
+- **`sync`**：変更ファイルをコンテナにコピーするだけ。HMR が効くもの（Next.js のフロント）に使う。
+- **`sync+restart`**：コピーしてメインプロセスを再起動する。HMR を持たない API サーバや worker に使う。
+- **`rebuild`**：イメージを丸ごと再ビルドする。`pnpm-lock.yaml` が変わったとき＝依存を足したときだけ。
 
-`node_modules/` や `.next/` を `ignore` しているのは、これらを同期する意味がない（むしろ I/O 負荷とプラットフォーム非互換の原因になる）からです。これは公式ドキュメントでも明確に推奨されている書き方です。
+`node_modules/` や `.next/` の `ignore` は公式ドキュメントも推奨する書き方です。同期する意味がないうえ、I/O 負荷とプラットフォーム非互換の原因になります。
 
-なお `frontend` 側は、自分のソースだけでなく `backend` も `sync` の対象に入れています。Hono RPC で型を import している都合上、API 側の型が変わったらフロントの型チェックにも反映してほしいためです。Next.js（Turbopack）の HMR は、この同期されたファイルの変更をその場で拾ってくれます。
+なお `frontend` は `backend` も `sync` の対象に入れています。Hono RPC で型を import している都合上、API の型が変わったらフロントの型チェックにも反映してほしいためで、Next.js の HMR は同期されたファイルの変更をその場で拾ってくれます。
 
-## 以前はどうしていたか（volume mount 方式の不満）
+## 以前の構成：volume mount 方式の不満
 
-ここまでが現在の構成です。なぜこの形に落ち着いたのか、以前使っていた volume mount 方式と、そこで困っていたことを振り返ります。
-
-最初に使っていたのは、ソースコードをまるごと volume mount する、よくある方式です。雰囲気としてはこんな `docker-compose.yml` でした。
+ここまでが現在の構成です。なぜこの形に落ち着いたのか、以前使っていた volume mount 方式で困っていたことを振り返ります。雰囲気としてはこんな `docker-compose.yml` でした。
 
 :::details docker-compose.yml 旧構成
 ```yaml:docker-compose.yml（旧）
@@ -292,19 +285,19 @@ volumes:
 ```
 :::
 
-ホストの `./frontend` などをそのままコンテナに見せて、`node_modules` だけは名前付き volume で「上書き」してホストと混ざらないようにする、という定番のハックです。コメントに書いたとおり、動くには動くのですが「なぜこの volume がここにあるのか」を毎回思い出さないといけませんし、使い込むうちに不満がたまっていきました。
+ホストのソースをそのままコンテナに見せて、`node_modules` だけは名前付き volume で「上書き」してホストと混ざらないようにする、という定番のハックです。動くには動くのですが、使い込むうちに不満がたまっていきました。
 
 **1. ファイル変更が HMR に伝わらないことがある**
 
-一番つらかったのがこれです。Docker がホストのファイルを VM 越しに共有する構成（Docker Desktop の macOS / Windows+WSL2、colima など）では、ホスト側の変更イベント（inotify）がコンテナ内の watcher に確実には届きません。結果として、ファイルを保存したのに HMR が反応しない・反応が数秒遅れる、ということが頻繁に起きました（ネイティブ Linux の bind mount では起きにくく、VM を挟む環境で顕著です）。`CHOKIDAR_USEPOLLING` のようなポーリング設定で誤魔化すこともできますが、CPU を無駄に食いますし、根本解決ではありません。
+一番つらかったのがこれです。ホストのファイルを VM 越しに共有する構成（Docker Desktop の macOS / Windows、colima など）では、ホスト側の変更イベント（inotify）がコンテナ内の watcher に確実には届かず、保存したのに HMR が反応しない・数秒遅れる、ということが頻繁に起きました。`CHOKIDAR_USEPOLLING` のようなポーリングで誤魔化せますが、CPU を無駄に食うだけで根本解決ではありません。
 
 **2. ホストの `node_modules` が肥大化・OS差で壊れる**
 
-`node_modules` を volume でマスクしていても、`pnpm install` をホストでも走らせてしまうと、ホスト側にも巨大な `node_modules` が積み上がります。さらに、ネイティブバイナリを含むパッケージ（esbuild など）は、ホスト（macOS/arm64）とコンテナ（linux）でビルド成果物が非互換です。volume の取り回しを少し間違えると、即座に「このプラットフォーム用のバイナリがない」と壊れます。
+volume でマスクしていても、ホストでも `pnpm install` を走らせれば巨大な `node_modules` が積み上がります。さらに、ネイティブバイナリを含むパッケージ（esbuild など）はホスト（macOS/arm64）とコンテナ（linux）で非互換なので、volume の取り回しを少し間違えると即座に壊れます。
 
 **3. 構成が複雑になりがち**
 
-依存インストール専用の `install` サービス、パッケージごとの `Dockerfile`、複数の名前付き volume、それらの起動順序（`depends_on`）……。やりたいことの割に、`docker-compose.yml` がどんどん大きくなっていきました。
+依存インストール専用の `install` サービス、パッケージごとの `Dockerfile`、複数の名前付き volume とその起動順序……。やりたいことの割に、`docker-compose.yml` がどんどん大きくなっていきました。
 
 ## Before / After 対比
 
@@ -321,15 +314,11 @@ volumes:
 
 良いことばかり書くと嘘くさいので、**デメリットも正直に**挙げます。
 
-- **初回ビルドに時間がかかる**：ソースをイメージに焼くので、最初の `docker compose watch` はそれなりに待ちます（pnpm store のキャッシュが効く2回目以降は速い）。
-- **`sync` は一方向コピーで癖がある**：ホスト→コンテナへのコピーなので、ファイルの**削除やリネーム**の追従は素直ではありません。挙動が怪しいときは結局 watch を起動し直すのが早い、という場面はあります。
-- **「即編集→即反映」に一手間**：bind mount のような「マウントしているから常に同期」ではなく、watch プロセスが動いていることが前提になります。
+- **初回ビルドに時間がかかる**：ソースをイメージに焼くので、最初はそれなりに待ちます（store キャッシュが効く2回目以降は速い）。
+- **`sync` は一方向コピーで癖がある**：ファイルの**削除やリネーム**の追従は素直ではなく、挙動が怪しいときは watch を起動し直すのが早い場面があります。
+- **watch プロセスが前提**：bind mount の「マウントしているから常に同期」とは違い、watch が動いていて初めて反映されます。
 
-加えて、`docker compose watch` 自体の制約として公式が挙げているものも知っておくと安全です。
-
-- watch は **`build:` を持つサービスにしか効かない**（`image:` 指定のプリビルドイメージは対象外）。
-- `ignore` のパスは監視している `path` からの相対で、glob は使えない。`.git` は自動で無視される。
-- コンテナ側に `stat` / `mkdir` / `rmdir` が必要で、対象パスへの書き込み権限も要る。
+公式が挙げる制約も知っておくと安全です。watch は **`build:` を持つサービスにしか効かず**（`image:` 指定のプリビルドは対象外）、`ignore` は監視 `path` からの相対で glob 不可、コンテナ側に `stat` / `mkdir` / `rmdir` と書き込み権限が必要です。
 
 ## 「丸ごと COPY」はやりすぎではないのか
 
