@@ -11,55 +11,41 @@ published: false
 pnpm モノレポ + Docker Compose 開発環境を、個人開発の Web アプリ向けに構成しています。
 frontend / backend / db を 1 コマンドで起動できるのは快適ですが、構成は試行錯誤しています。
 
-特に長く使っていたのが、ソースコードを **volume mount** でコンテナに渡す方式です。
-これが地味に不安定で、**`docker compose watch`** を使う方式へ乗り換えています。
-本記事はその移行で「何が良くなって、何を引き換えにしたのか」を整理しています。
+長く使っていたのは、ソースコードを **volume mount** でコンテナに渡す方式です。
+これが地味に不安定で、**`docker compose watch`** 方式へ乗り換えています。
 
-細部はプロダクトごとに今も迷っていますが、現在の構成を示しつつ、before / after を対比してみます。
 
-## 今の結論 -モノレポ全体 Dockerfile.dev イメージ + compose watch 方式-
+本記事は「何が良くなって、何を引き換えにしたのか」を整理しています。
+細部は今も迷っていますが現在の構成を示しつつ、before / after を対比してみます。
 
-- HMR（ホットリロード）の不安定さと、ホスト側 `node_modules` の肥大化が解消された
-- 引き換えに、初回ビルドの時間や `sync` 特有の癖といった別のコストが発生した
-- Docker Image がモノレポ内のパッケージで同一になり、ディスク消費が抑えられた
 
-という温度感です。
 
-なお、調べてみると `docker compose watch` を使うこの方向性は Docker 公式やコミュニティでも「bind mount の現代的な代替」として推されており、特別変わったことをしているわけではありません。その意味で「枯れた最適解に寄せた」記録でもあります。
-
-## 題材にする monorepo の形
-
-具体例がないと話しにくいので、本記事では次のような3パッケージ構成を題材にします。
-```
-.
-├── pnpm-workspace.yaml
-├── frontend/   # フロントエンド（Next.js, Vite...）
-├── backend/    # API サーバ（Hono + tsx...）＋ DB スキーマ（Drizzle ORM, Prisma...）
-└── worker/     # バックグラウンドジョブ（定期実行・キュー処理など）
-```
-
-```yaml:pnpm-workspace.yaml
-packages:
-  - frontend
-  - backend
-  - worker
-```
-
-ポイントは、API サーバを [Hono](https://hono.dev/) の [RPC](https://hono.dev/docs/guides/rpc) で書いていることです。`backend` が公開する型を `frontend` 側が `import` して、エンドポイントの入出力を型安全に呼べます。
-
-```ts
-// frontend 側。backend の "型だけ" を import している
-import type { AppType } from "backend";
-import { hc } from "hono/client";
-
-const client = hc<AppType>(process.env.API_URL!);
-```
-
-ここで重要なのは、**共有しているのは型だけで、ビルド成果物を共有しているわけではない**という点です。後述しますが、この性質のおかげで開発環境がかなり単純になります。逆に言うと「ビルドやコード生成が必要な共有パッケージ」を抱える monorepo では、もう少し作り込みが要ります（これも後で触れます）。
 
 ## 現在の構成：docker compose watch 方式
 
 先に、いま落ち着いている構成をそのまま示します。
+
+```mermaid
+flowchart LR
+
+  subgraph host["ホスト: pnpm monorepo"]
+    direction TB
+    root_node_modules["node_modules"]
+    lock["pnpm-lock.yaml"]
+    pnpm["pnpm-workspace.yaml"]
+    frontend["frontend/node_modules"]
+    backend["backend/"]
+    worker["worker/"]
+  end
+
+  subgraph docker["Docker build context"]
+
+  end
+
+
+  host --> docker
+
+```
 
 `docker compose watch`（Compose v2.22 以降）は、ホスト側のファイル変更を検知して、コンテナに対して **sync（同期）/ rebuild（再ビルド）/ sync+restart（同期して再起動）** のいずれかを実行してくれる機能です。これを使うと、発想を「ソースを mount する」から「**ソースはイメージに焼き込み、変更分だけ watch で送り込む**」に切り替えられます。
 
@@ -141,6 +127,7 @@ graph TB
 
 次に、`compose.yaml` 側で変更の反映方法を指定します。
 
+:::details compose.yaml 新方式
 ```yaml:compose.yaml
 services:
   database:
@@ -238,6 +225,7 @@ services:
         - action: rebuild
           path: pnpm-lock.yaml
 ```
+:::
 
 アクションの考え方はシンプルです。
 
@@ -249,47 +237,13 @@ services:
 
 なお `frontend` 側は、自分のソースだけでなく `backend` も `sync` の対象に入れています。Hono RPC で型を import している都合上、API 側の型が変わったらフロントの型チェックにも反映してほしいためです。Next.js（Turbopack）の HMR は、この同期されたファイルの変更をその場で拾ってくれます。
 
-### 環境変数はルートに集約する（ハマりどころ）
-
-watch 方式に変えると、env ファイルの置き場所で一度ハマります。**bind mount をやめたので、サブディレクトリに置いた `.env` はコンテナから見えません**。
-
-旧来の volume mount 方式なら `backend/.env` をマウント先で読めましたが、watch 方式ではソースをイメージに焼くだけなので、ホストのサブディレクトリの `.env` は届かないのです。そこで env ファイルは**リポジトリのルートに集約**し、`compose.yaml` の `env_file:` でサービスごとに注入します。
-
-```
-.env.database   # MySQL の接続情報（DB コンテナと backend が読む）
-.env.backend    # API キーなどサーバ固有
-.env.frontend   # フロント固有
-.env.worker     # ジョブ実行固有
-```
-
-ファイルをサービスの関心ごとに分けておくと、どの値がどこで使われるか分かりやすく、注入も `env_file:` を並べるだけで済みます。
-
-### 起動コマンドの統一
-
-最後に、`package.json` の scripts を整えておきます。
-
-```json:package.json
-{
-  "scripts": {
-    "dev": "docker compose watch",
-    "stop": "docker compose stop",
-    "down": "docker compose down"
-  }
-}
-```
-
-`pnpm dev` を叩けば watch 付きで全サービスが立ち上がります。ローカルに Node や pnpm の `node_modules` を用意する必要すらありません。
-
-### この単純さが成り立つ理由（射程の注記）
-
-ここまでの構成がスッキリしているのは、**共有しているのが Hono RPC の「型」だけで、ビルドやコード生成が要らない**からです。もし「スキーマや定義ファイルからコードを生成（codegen）してからでないと他パッケージが動かない」ような共有パッケージを挟む場合は、もう一手間だけ増えます。生成物のディレクトリを watch の対象に足したり、生成タスクを起動前に一度走らせたりすればよく、「イメージに焼く＋watch で同期」という方針自体はそのまま使えます。本記事の例が特にスッキリしているのは、型のみ共有・DB は backend 同居というアーキテクチャ選択で、その一手間すら要らなくできているからだ、という補足です。
-
 ## 以前はどうしていたか（volume mount 方式の不満）
 
 ここまでが現在の構成です。なぜこの形に落ち着いたのか、以前使っていた volume mount 方式と、そこで困っていたことを振り返ります。
 
 最初に使っていたのは、ソースコードをまるごと volume mount する、よくある方式です。雰囲気としてはこんな `docker-compose.yml` でした。
 
+:::details docker-compose.yml 旧構成
 ```yaml:docker-compose.yml（旧）
 services:
   frontend:
@@ -336,6 +290,7 @@ volumes:
   backend-node-modules:
   root-node-modules:
 ```
+:::
 
 ホストの `./frontend` などをそのままコンテナに見せて、`node_modules` だけは名前付き volume で「上書き」してホストと混ざらないようにする、という定番のハックです。コメントに書いたとおり、動くには動くのですが「なぜこの volume がここにあるのか」を毎回思い出さないといけませんし、使い込むうちに不満がたまっていきました。
 
@@ -376,33 +331,16 @@ volumes:
 - `ignore` のパスは監視している `path` からの相対で、glob は使えない。`.git` は自動で無視される。
 - コンテナ側に `stat` / `mkdir` / `rmdir` が必要で、対象パスへの書き込み権限も要る。
 
-## まだ迷っている軸
 
-「核」は固まったものの、その周辺にはまだ「どっちが better か」を決めきれていない部分があります。ここが一番「試行錯誤」している箇所なので、断定せずに選択肢として並べておきます。
+## 今の結論 -モノレポ全体 Dockerfile.dev イメージ + compose watch 方式-
 
-### サーバを sync+restart にするか sync だけにするか
+- HMR（ホットリロード）の不安定さと、ホスト側 `node_modules` の肥大化が解消された
+- 引き換えに、初回ビルドの時間や `sync` 特有の癖といった別のコストが発生した
+- Docker Image がモノレポ内のパッケージで同一になり、ディスク消費が抑えられた
 
-API サーバを `tsx watch`（ファイル変更で自動再起動するモード）で起動している場合、`tsx` 自身が再起動を面倒見てくれるので、watch 側は `sync` だけでも回ります。一方、サーバを単に `tsx`（watch なし）で起動しているなら、watch 側の `sync+restart` に再起動を任せる必要があります。
+という温度感です。
 
-「再起動の責任を `tsx` に持たせるか、Compose に持たせるか」の二択で、どちらも動きます。プロセスを二重に再起動してしまう無駄を避けたいなら役割を片方に寄せる、という整理で今は選んでいます。
-
-### DB を tmpfs にするか永続化するか
-
-開発用 DB を `tmpfs`（メモリ上、停止で消える）にするか、名前付き volume で永続化するか。
-
-- **tmpfs**：毎回まっさらから始まる。シードを冪等に書いておけば「常にクリーンな状態」で開発でき、状態のゴミに悩まされません。CI 的な再現性を重視するならこちら。
-- **永続化**：手で入れたテストデータが残るので、毎回シードし直す手間がない。じっくりデータをいじりながら開発したいときに楽。
-
-プロダクトの性格（毎回リセットしたいか、データを育てたいか）で割れていて、正直まだ統一できていません。
-
-### DB 初期化を one-shot サービスにするかホストスクリプトにするか
-
-スキーマ適用やシード投入を、
-
-- **compose 内の one-shot サービス**（`db-prep` のようなコンテナを `depends_on` で先に走らせる）にするか、
-- **ホストから叩くスクリプト**（`pnpm db:migrate` / `pnpm db:seed` を冪等に書く）にするか。
-
-one-shot サービスは「`docker compose watch` 一発で初期化まで完了する」のが気持ち良い反面、compose が少し膨らみます。ホストスクリプトは compose を薄く保てて、初期化の失敗がサービス起動に巻き込まれない代わりに、手順が1つ増えます。これも今のところ、プロダクトごとに行き来しています。
+なお、調べてみると `docker compose watch` を使うこの方向性は Docker 公式やコミュニティでも「bind mount の現代的な代替」として推されており、特別変わったことをしているわけではありません。その意味で「枯れた最適解に寄せた」記録でもあります。
 
 ## まとめ
 
@@ -415,3 +353,38 @@ volume mount 方式から `docker compose watch` 方式へ移したことで、
 といった、長年ふわっと我慢していた問題がまとめて解消されました。引き換えに初回ビルド時間や `sync` の癖という別のコストは生まれましたが、日々の開発体験としては移行して良かった、というのが今の結論です。
 
 とはいえ、DB の永続化や初期化の流儀はまだ揺れていて、「これが完成形」と言い切るには至っていません。タイトルどおり、まだ試行錯誤の途中です。同じように pnpm monorepo を Docker で回している方の、それぞれの「落としどころ」も知りたいところです。
+
+## メモ
+sync or sync+restart についてどこかメモ程度に追記するのに留める
+
+### 一時おきば
+
+ポイントは、API サーバを [Hono](https://hono.dev/) の [RPC](https://hono.dev/docs/guides/rpc) で書いていることです。`backend` が公開する型を `frontend` 側が `import` して、エンドポイントの入出力を型安全に呼べます。
+
+```ts
+// frontend 側。backend の "型だけ" を import している
+import type { AppType } from "backend";
+import { hc } from "hono/client";
+
+const client = hc<AppType>(process.env.API_URL!);
+```
+
+ここで重要なのは、**共有しているのは型だけで、ビルド成果物を共有しているわけではない**という点です。後述しますが、この性質のおかげで開発環境がかなり単純になります。逆に言うと「ビルドやコード生成が必要な共有パッケージ」を抱える monorepo では、もう少し作り込みが要ります（これも後で触れます）。
+
+#### 題材にする monorepo の形
+
+具体例がないと話しにくいので、本記事では次のような3パッケージ構成を題材にします。
+```
+.
+├── pnpm-workspace.yaml
+├── frontend/   # フロントエンド（Next.js, Vite...）
+├── backend/    # API サーバ（Hono + tsx...）＋ DB スキーマ（Drizzle ORM, Prisma...）
+└── worker/     # バックグラウンドジョブ（定期実行・キュー処理など）
+```
+
+```yaml:pnpm-workspace.yaml
+packages:
+  - frontend
+  - backend
+  - worker
+```
