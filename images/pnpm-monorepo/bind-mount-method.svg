@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1600"
+   height="900"
+   viewBox="0 0 1600 900"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   sodipodi:docname="bind-mount-method.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="true"
+     showguides="false"
+     inkscape:lockguides="false"
+     inkscape:zoom="0.70857232"
+     inkscape:cx="771.97483"
+     inkscape:cy="446.67282"
+     inkscape:window-width="1968"
+     inkscape:window-height="1158"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="100"
+       originy="100"
+       spacingx="1"
+       spacingy="1"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       id="rect1"
+       width="400"
+       height="160"
+       x="80"
+       y="80"
+       ry="35.555557" />
+    <rect
+       style="fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       id="rect2"
+       width="400"
+       height="160"
+       x="80"
+       y="300"
+       ry="40" />
+    <rect
+       style="fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       id="rect3"
+       width="400"
+       height="160"
+       x="80"
+       y="520"
+       ry="40" />
+    <rect
+       style="fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       id="rect4"
+       width="320"
+       height="40"
+       x="600"
+       y="760"
+       ry="16" />
+    <text
+       xml:space="preserve"
+       style="font-size:37.3333px;line-height:normal;font-family:KouzanBrushFontSousyoOTF;-inkscape-font-specification:'KouzanBrushFontSousyoOTF, Normal';text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       x="120"
+       y="40"
+       id="text4"><tspan
+         sodipodi:role="line"
+         id="tspan4"
+         x="120"
+         y="40"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">separated docker images/containers</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       x="588.49927"
+       y="736.57794"
+       id="text5"><tspan
+         sodipodi:role="line"
+         id="tspan5"
+         x="588.49927"
+         y="736.57794">./node_modules</tspan></text>
+    <rect
+       style="fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       id="rect6"
+       width="325"
+       height="40"
+       x="595"
+       y="340"
+       ry="20" />
+    <rect
+       style="fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       id="rect7"
+       width="325"
+       height="40"
+       x="595"
+       y="120"
+       ry="15.887115" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       x="562.62146"
+       y="114.7258"
+       id="text7"><tspan
+         sodipodi:role="line"
+         id="tspan7"
+         x="562.62146"
+         y="114.7258">./frontend/node_modules</tspan></text>
+    <rect
+       style="fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       id="rect8"
+       width="325"
+       height="40"
+       x="600"
+       y="200"
+       ry="15.887115" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       x="565"
+       y="200"
+       id="text8"><tspan
+         sodipodi:role="line"
+         id="tspan8"
+         x="565"
+         y="200">./frontend</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       x="557.62146"
+       y="334.7258"
+       id="text9"><tspan
+         sodipodi:role="line"
+         id="tspan9"
+         x="557.62146"
+         y="334.7258">./backend/node_modules</tspan></text>
+    <rect
+       style="fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       id="rect9"
+       width="325"
+       height="40"
+       x="600"
+       y="420"
+       ry="20" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       x="562.62146"
+       y="414.7258"
+       id="text10"><tspan
+         sodipodi:role="line"
+         id="tspan10"
+         x="562.62146"
+         y="414.7258">./backend</tspan></text>
+    <rect
+       style="fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       id="rect10"
+       width="320"
+       height="40"
+       x="600"
+       y="540"
+       ry="18.709692" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       x="562.62146"
+       y="534.72583"
+       id="text11"><tspan
+         sodipodi:role="line"
+         id="tspan11"
+         x="562.62146"
+         y="534.72583">./worker/node_modules</tspan></text>
+    <rect
+       style="fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       id="rect11"
+       width="320"
+       height="40"
+       x="600"
+       y="620"
+       ry="16.592758" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       x="562.62146"
+       y="614.72583"
+       id="text12"><tspan
+         sodipodi:role="line"
+         id="tspan12"
+         x="562.62146"
+         y="614.72583">./worker</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       x="99.620819"
+       y="126.92268"
+       id="text13"><tspan
+         sodipodi:role="line"
+         id="tspan13"
+         x="99.620819"
+         y="126.92268"
+         style="fill:#ffffff;fill-opacity:1">frontend image/container</tspan><tspan
+         sodipodi:role="line"
+         x="99.620819"
+         y="173.58931"
+         id="tspan14"
+         style="fill:#ffffff;fill-opacity:1">command: vite dev</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       x="98.483276"
+       y="346.57797"
+       id="text16"><tspan
+         sodipodi:role="line"
+         id="tspan15"
+         x="98.483276"
+         y="346.57797"
+         style="fill:#ffffff;fill-opacity:1">backend image/container</tspan><tspan
+         sodipodi:role="line"
+         x="98.483276"
+         y="393.2446"
+         id="tspan16"
+         style="fill:#ffffff;fill-opacity:1">command: tsx watch</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.3333px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#09bcff;fill-opacity:0.389163;stroke-width:5.66929;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+       x="98.483276"
+       y="566.57794"
+       id="text18"><tspan
+         sodipodi:role="line"
+         id="tspan17"
+         x="98.483276"
+         y="566.57794"
+         style="fill:#ffffff;fill-opacity:1">worker image/container</tspan><tspan
+         sodipodi:role="line"
+         x="98.483276"
+         y="613.24457"
+         id="tspan18"
+         style="fill:#ffffff;fill-opacity:1">command: tsx watch</tspan></text>
+  </g>
+</svg>

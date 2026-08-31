@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="100"
+   height="100"
+   viewBox="0 0 100 100"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   sodipodi:docname="quadrant-chart.svg"
+   inkscape:export-filename="quadrant-chart.png"
+   inkscape:export-xdpi="983.03998"
+   inkscape:export-ydpi="983.03998"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="true"
+     showguides="false"
+     inkscape:lockguides="false"
+     inkscape:zoom="6.4865175"
+     inkscape:cx="38.001902"
+     inkscape:cy="50.103927"
+     inkscape:window-width="1472"
+     inkscape:window-height="895"
+     inkscape:window-x="596"
+     inkscape:window-y="1473"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="100"
+       originy="100"
+       spacingx="0.1"
+       spacingy="0.1"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <rect
+       x="5"
+       y="17.151909"
+       width="0"
+       height="7.8480909"
+       id="rect13" />
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter30"
+       x="-0.04803772"
+       y="-0.04803772"
+       width="1.0960754"
+       height="1.0960754">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="2.0015717"
+         id="feGaussianBlur30" />
+    </filter>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="font-variation-settings:normal;opacity:1;mix-blend-mode:normal;fill:#f3fbff;fill-opacity:1;stroke:none;stroke-width:0.219216;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers stroke fill;filter:url(#filter30)"
+       id="rect29"
+       width="100"
+       height="100"
+       x="0"
+       y="0"
+       transform="matrix(0.91234598,0,0,0.91234598,4.382702,4.382702)" />
+    <rect
+       style="fill:none;stroke:#004885;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       id="rect1"
+       width="40"
+       height="40"
+       x="14.75"
+       y="5.25"
+       ry="0" />
+    <rect
+       style="fill:none;stroke:#004885;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       id="rect2"
+       width="40"
+       height="40"
+       x="14.75"
+       y="45.25" />
+    <rect
+       style="fill:none;stroke:#004885;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       id="rect4"
+       width="40"
+       height="40"
+       x="54.75"
+       y="45.25" />
+    <text
+       xml:space="preserve"
+       style="font-size:37.3333px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Normal';text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:none;stroke:#004885;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       x="11.256683"
+       y="54.92244"
+       id="text4"><tspan
+         sodipodi:role="line"
+         id="tspan4"
+         x="11.256683"
+         y="54.92244"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4px;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:tb-rl;fill:#00518c;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         dx="0 0 0 0 0 0">個別イメ<tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4px;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;word-spacing:0px;fill:#00518c;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+   id="tspan17"
+   dx="0">ー</tspan>ジ</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:37.3333px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Normal';text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:none;stroke:#004885;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       x="11.687904"
+       y="14.896584"
+       id="text5"><tspan
+         sodipodi:role="line"
+         id="tspan5"
+         x="11.687904"
+         y="14.896584"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4px;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:vertical-lr;fill:#61bdff;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         dx="0 0 0 0 0 0"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4px;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;fill:#61bdff;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+   id="tspan15">単一</tspan>イメ<tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4px;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;word-spacing:0px;fill:#61bdff;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+   id="tspan16"
+   dx="0">ー</tspan>ジ</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.33333px;line-height:normal;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#61bdff;fill-opacity:1;stroke:#ffffff;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       x="16.999998"
+       y="23.999998"
+       id="text6"><tspan
+         sodipodi:role="line"
+         x="16.999998"
+         y="23.999998"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:2.66667px;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Heavy';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#61bdff;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         id="tspan9">環境/依存関係の共通部分が多い</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:37.3333px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Normal';text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#009d05;fill-opacity:1;stroke:#004885;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       x="20.449219"
+       y="89.189453"
+       id="text11"><tspan
+         sodipodi:role="line"
+         id="tspan11"
+         x="20.449219"
+         y="89.189453"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4px;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;fill:#009d05;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"> bind mount</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:37.3333px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Normal';text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#04e000;fill-opacity:1;stroke:#ffffff;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       x="57.73037"
+       y="89.228073"
+       id="text12"><tspan
+         sodipodi:role="line"
+         id="tspan12"
+         x="57.73037"
+         y="89.228073"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4px;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;fill:#04e000;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill">compose watch</tspan></text>
+    <text
+       xml:space="preserve"
+       id="text13"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.66667px;line-height:normal;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:vertical-lr;direction:ltr;text-orientation:sideways;white-space:pre;shape-inside:url(#rect13);display:inline;fill:#d9efff;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.33333px;line-height:normal;font-family:Sans;-inkscape-font-specification:'Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#00518c;fill-opacity:1;stroke:#ffffff;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       x="17.999998"
+       y="63"
+       id="text18"><tspan
+         sodipodi:role="line"
+         x="17.999998"
+         y="63"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:2.66667px;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Heavy';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#00518c;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         id="tspan18">環境/依存関係が大きく異なる</tspan></text>
+    <g
+       id="g33"
+       transform="translate(0.41896633,-3.3387257)">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:2.66667px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Heavy';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;opacity:1;vector-effect:none;fill:#04e000;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+         x="60.563801"
+         y="31.466148"
+         id="text23"><tspan
+           sodipodi:role="line"
+           x="60.563801"
+           y="31.466148"
+           style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:2.66667px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Heavy';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;white-space:normal;vector-effect:none;fill:#04e000;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+           id="tspan23">ホスト　コンテナ 一方向</tspan></text>
+      <path
+         style="vector-effect:none;fill:#04e000;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill"
+         d="M 68.1,30.399999 H 69.5 V 29.899999 L 70.2,30.599999 69.5,31.299999 V 30.799999 H 68.1 Z"
+         id="path31-1"
+         sodipodi:nodetypes="cccccccc" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:37.3333px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Normal';text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#39c03d;fill-opacity:1;stroke:#004885;stroke-width:0.3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       x="41.659534"
+       y="94.49543"
+       id="text25"><tspan
+         sodipodi:role="line"
+         id="tspan25"
+         x="41.659534"
+         y="94.49543"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4px;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;fill:#39c03d;fill-opacity:1;stroke:#ffffff;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill">ソース同期方法</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:37.3333px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Normal';text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:none;stroke:#ffffff;stroke-width:0.3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+       x="6.362813"
+       y="32.083878"
+       id="text27"><tspan
+         sodipodi:role="line"
+         id="tspan27"
+         x="6.362813"
+         y="32.083878"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4px;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:tb-rl;fill:#0092ff;fill-opacity:1;stroke:#ffffff;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         dx="0 0 0 0">イメージ構成</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:2.66667px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Heavy';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;opacity:1;vector-effect:none;fill:#61bdff;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+       x="57"
+       y="23.999998"
+       id="text28"><tspan
+         sodipodi:role="line"
+         x="57"
+         y="23.999998"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:2.66667px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Heavy';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;white-space:normal;vector-effect:none;fill:#61bdff;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+         id="tspan28">環境/依存関係の共通部分が多い</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:2.66667px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Heavy';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;opacity:1;vector-effect:none;fill:#00518c;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+       x="57.967991"
+       y="63.147121"
+       id="text29"><tspan
+         sodipodi:role="line"
+         x="57.967991"
+         y="63.147121"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:2.66667px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Heavy';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;white-space:normal;vector-effect:none;fill:#00518c;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+         id="tspan29">環境/依存関係が大きく異なる</tspan></text>
+    <rect
+       style="fill:none;stroke:#ff6500;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill;fill-opacity:0.11917102"
+       id="rect3"
+       width="40"
+       height="40"
+       x="54.75"
+       y="5.25" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:2.66667px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Heavy';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;opacity:1;vector-effect:none;fill:#ff6500;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+       x="62.318329"
+       y="38.610474"
+       id="text30"><tspan
+         sodipodi:role="line"
+         x="62.318329"
+         y="38.610474"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.66667px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;white-space:normal;vector-effect:none;fill:#ff6500;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+         id="tspan30">pnpm monorepo は</tspan><tspan
+         sodipodi:role="line"
+         x="62.318329"
+         y="41.94381"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.66667px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;white-space:normal;vector-effect:none;fill:#ff6500;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+         id="tspan31">大体これかも </tspan></text>
+    <rect
+       style="opacity:1;vector-effect:none;fill:#ff6500;fill-opacity:0.196891;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill"
+       id="rect31"
+       width="30"
+       height="6.8660345"
+       x="60"
+       y="36"
+       ry="1.8660355" />
+    <g
+       id="g31"
+       transform="translate(0.44634381,-2.9220578)">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:2.66667px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Heavy';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;opacity:1;vector-effect:none;fill:#059d00;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+         x="20.536423"
+         y="31.04948"
+         id="text20"><tspan
+           sodipodi:role="line"
+           x="20.536423"
+           y="31.04948"
+           style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:2.66667px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Heavy';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;white-space:normal;vector-effect:none;fill:#059d00;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+           id="tspan21">ホスト　コンテナ 双方向</tspan></text>
+      <path
+         style="opacity:1;vector-effect:none;fill:#059d00;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill"
+         d="M 27.899999,30.199999 28.599999,29.499999 V 29.999999 H 29.799999 V 29.499999 L 30.499999,30.199999 29.799999,30.899999 V 30.399999 H 28.599999 V 30.899999 Z"
+         id="path31"
+         sodipodi:nodetypes="ccccccccccc" />
+    </g>
+    <g
+       id="g31-1"
+       transform="translate(0.46357609,35.950519)">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:2.66667px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Heavy';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;opacity:1;vector-effect:none;fill:#059d00;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+         x="20.536423"
+         y="31.04948"
+         id="text20-7"><tspan
+           sodipodi:role="line"
+           x="20.536423"
+           y="31.04948"
+           style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:2.66667px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Heavy';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;white-space:normal;vector-effect:none;fill:#059d00;fill-opacity:1;stroke:none;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+           id="tspan21-9">ホスト　コンテナ 双方向</tspan></text>
+      <path
+         style="opacity:1;vector-effect:none;fill:#059d00;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill"
+         d="M 27.899999,30.199999 28.599999,29.499999 V 29.999999 H 29.799999 V 29.499999 L 30.499999,30.199999 29.799999,30.899999 V 30.399999 H 28.599999 V 30.899999 Z"
+         id="path31-7"
+         sodipodi:nodetypes="ccccccccccc" />
+    </g>
+    <g
+       id="g33-1"
+       transform="translate(0.43619861,35.533851)">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:2.66667px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Heavy';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;opacity:1;vector-effect:none;fill:#04e000;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+         x="60.563801"
+         y="31.466148"
+         id="text23-3"><tspan
+           sodipodi:role="line"
+           x="60.563801"
+           y="31.466148"
+           style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:2.66667px;line-height:normal;font-family:'.Hiragino Kaku Gothic Interface';-inkscape-font-specification:'.Hiragino Kaku Gothic Interface, Heavy';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;white-space:normal;vector-effect:none;fill:#04e000;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill;stop-color:#000000;stop-opacity:1"
+           id="tspan23-6">ホスト　コンテナ 一方向</tspan></text>
+      <path
+         style="vector-effect:none;fill:#04e000;fill-opacity:1;stroke:none;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;paint-order:markers stroke fill"
+         d="M 68.1,30.399999 H 69.5 V 29.899999 L 70.2,30.599999 69.5,31.299999 V 30.799999 H 68.1 Z"
+         id="path31-1-0"
+         sodipodi:nodetypes="cccccccc" />
+    </g>
+  </g>
+</svg>
