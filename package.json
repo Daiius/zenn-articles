@@ -4,13 +4,14 @@
   "description": "Repository for Zenn articles",
   "private": true,
   "scripts": {
-    "preview": "open http://localhost:8000 & zenn preview"
+    "preview:local": "open http://localhost:8000 & zenn preview",
+    "preview": "zenn preview --port 8601"
   },
   "keywords": [],
   "author": "Daiji Yamashita",
   "license": "ISC",
   "packageManager": "pnpm@11.24.0",
   "devDependencies": {
-    "zenn-cli": "^0.5.3"
+    "zenn-cli": "^0.5.13"
   }
 }
