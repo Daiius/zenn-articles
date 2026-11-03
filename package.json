@@ -10,7 +10,7 @@
   "keywords": [],
   "author": "Daiji Yamashita",
   "license": "ISC",
-  "packageManager": "pnpm@11.24.0",
+  "packageManager": "pnpm@12.16.1",
   "devDependencies": {
     "zenn-cli": "^0.5.13"
   }
