@@ -1,5 +1,5 @@
 ---
-title: "Web アプリのインフラ経営ゲームを作りたい話"
+title: "Web アプリのインフラ運営ゲームを作ってみる話"
 emoji: "💸"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["infra", "web", "cloud", "nextjs", "vercel"]
